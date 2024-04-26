@@ -22,7 +22,7 @@ jobs:
         with:
           context: .
           file: "Dockerfile-download"
-          tags: gigaohmbio-download:latest
+          tags: gigaohmbio-download
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -31,7 +31,7 @@ jobs:
       - name: Docker Run
         uses: addnab/docker-run-action@v3
         with:
-          image: gigaohmbio-download:latest
+          image: gigaohmbio-download
           options: --rm -v ${{ github.workspace }}/data:/home/pn/app/data
       
       - name: Verify
