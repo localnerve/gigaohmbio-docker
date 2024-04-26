@@ -11,7 +11,9 @@ Commands to run isolated (from project directory):
 docker build -t 'gigaohmbio-download' -f Dockerfile-download .
 
 # run the image in a container of the same name
-docker run --name=gigaohmbio-download -v ./data:/home/pn/app/data 'gigaohmbio-download'
+docker run --rm -v ./data:/home/pn/app/data 'gigaohmbio-download'
+
+# output is in ./data
 ```
 
 ## Transcribe
