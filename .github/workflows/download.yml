@@ -20,6 +20,19 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Get Host User Group
+        id: host
+        shell: bash
+        run: |
+          echo "hostgroup=`id -g`" >> $GITHUB_OUTPUT
+          echo "hostuser=`id -u`" >> $GITHUB_OUTPUT
+
+      - name: Test Host User Group
+        shell: bash
+        run: |
+          echo "hostgroup=${{ steps.host.outputs.hostuser }}"
+          echo "hostuser=${{ steps.host.outputs.hostgroup }}"
+
       - name: Docker Build
         uses: docker/build-push-action@v4
         with:
@@ -29,20 +42,12 @@ jobs:
           tags: gigaohmbio-download:latest
           push: false
 
-      - name: Pre Verify
-        shell: bash
-        run: |
-          ls -l ${{ github.workspace }}
-          getent group docker | cut -d: -f3
-          useradd -u 1000 -g docker pn
-          ls -l ${{ github.workspace }}
-
       - name: Docker Run
         uses: tj-actions/docker-run@v2
         with:
           image: gigaohmbio-download:latest
           name: gigaohmbio-download-1
-          options: -v ${{ github.workspace }}/data:/home/pn/app/data
+          options: --user ${{ steps.host.outputs.hostuser }}:${{ steps.host.outputs.hostgroup }} -v ${{ github.workspace }}/data:/home/pn/app/data
       
       - name: Verify
         shell: bash
