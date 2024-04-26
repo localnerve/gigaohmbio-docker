@@ -32,9 +32,12 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: gigaohmbio-download:latest
-          options: -v ${{ github.workspace }}/data:/home/pn/app/data
+          options: --rm -v ${{ github.workspace }}/data:/home/pn/app/data
       
       - name: Verify
         shell: bash
         run: |
+          ls -l ${{ github.workspace }}
+          ls -l ${{ github.workspace }}/data
+          cat ${{ github.workspace }}/data/dl-output.txt
           test `tail -1 ${{ github.workspace }}/data/log.txt` = "DOWNLOAD_OK"
