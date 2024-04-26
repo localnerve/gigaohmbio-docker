@@ -28,7 +28,12 @@ jobs:
           load: true
           tags: gigaohmbio-download:latest
           push: false
-        
+
+      - name: Pre Verify
+        shell: bash
+        run: |
+          ls -l ${{ github.workspace }}
+
       - name: Docker Run
         uses: tj-actions/docker-run@v2
         with:
