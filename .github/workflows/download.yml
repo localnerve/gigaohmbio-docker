@@ -33,7 +33,8 @@ jobs:
         shell: bash
         run: |
           ls -l ${{ github.workspace }}
-          chown 1000:1000 ${{ github.workspace }}/data
+          getent group docker | cut -d: -f3
+          useradd -D pn -u 1000 -g `getent group docker | cut -d: -f3`
           ls -l ${{ github.workspace }}
 
       - name: Docker Run
