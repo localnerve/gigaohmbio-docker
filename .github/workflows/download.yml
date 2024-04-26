@@ -13,20 +13,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Docker Build
         uses: docker/build-push-action@v4
         with:
           context: .
           file: "Dockerfile-download"
+          load: true
           tags: gigaohmbio-download:latest
           push: false
         
       - name: Docker Run
-        uses: addnab/docker-run-action@v3
+        uses: tj-actions/docker-run@v2
         with:
           image: gigaohmbio-download:latest
-          options: --rm -v ${{ github.workspace }}/data:/home/pn/app/data
+          name: gigaohmbio-download-1
+          options: -v ${{ github.workspace }}/data:/home/pn/app/data
       
       - name: Verify
         shell: bash
