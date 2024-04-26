@@ -34,7 +34,7 @@ jobs:
         run: |
           ls -l ${{ github.workspace }}
           getent group docker | cut -d: -f3
-          useradd -D pn -u 1000 -g `getent group docker | cut -d: -f3`
+          useradd -u 1000 -g docker pn
           ls -l ${{ github.workspace }}
 
       - name: Docker Run
