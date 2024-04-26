@@ -1,0 +1,40 @@
+name: Download
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  download:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker Setup
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Docker Build
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: "Dockerfile-download"
+          tags: gigaohmbio-download:latest
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+        
+      - name: Docker Run
+        uses: addnab/docker-run-action@v3
+        with:
+          image: gigaohmbio-download:latest
+          options: -v ${{ github.workspace }}/data:/home/pn/app/data
+      
+      - name: Verify
+        shell: bash
+        run: |
+          test `tail -1 ${{ github.workspace }}/data/log.txt` = "DOWNLOAD_OK"

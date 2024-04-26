@@ -1,7 +1,11 @@
 FROM nikolaik/python-nodejs:latest
 
-ENV GIGAOHMBIO_URL=gigaohmbio-latest-video.txt
-ENV GIGAOHMBIO_DL=gigaohmbio-dl-output.txt
+ENV APPHOME=/home/pn
+ENV APPDIR=$APPHOME/app
+ENV BINDMOUNT_VOL=./data
+ENV GIGAOHMBIO_URL=./data/latest-video-url.txt
+ENV GIGAOHMBIO_DL=./data/dl-output.txt
+ENV GIGAOHMBIO_LOG=./data/log.txt
 
 USER root
 WORKDIR /app
@@ -12,10 +16,10 @@ apt-get install pipx ffmpeg ca-certificates fonts-liberation libappindicator3-1 
 EOF
 
 USER pn
-WORKDIR /home/pn/app
-COPY --chmod=755 entrypoint.sh .
+WORKDIR $APPDIR
+COPY --chmod=755 entrypoint-download.sh .
 # install twitch-dl for pn, test access
-ENV PATH="/home/pn/.local/bin:$PATH"
+ENV PATH="$APPHOME/.local/bin:$PATH"
 RUN <<EOF
 pipx install twitch-dl
 pipx ensurepath
@@ -25,4 +29,4 @@ twitch-dl --version
 ffmpeg -h
 EOF
 
-ENTRYPOINT ["/home/pn/app/entrypoint.sh"]
+ENTRYPOINT ["/home/pn/app/entrypoint-download.sh"]
