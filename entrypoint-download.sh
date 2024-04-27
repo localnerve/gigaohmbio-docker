@@ -9,9 +9,10 @@ npx -y cowsay debug
 echo "@@@ DEBUG 1.5"
 
 OUTPUT_FORMAT=m4a
-DEBUG=cli,get-attribute npx -y @localnerve/get-attribute --url=https://m.twitch.tv/gigaohmbiological --selector='a[href^="/videos"]' --attribute=href --useprop=true >$GIGAOHMBIO_URL 2>$GIGAOHMBIO_LOG
+DEBUG=cli,get-attribute npx -y @localnerve/get-attribute --url=https://m.twitch.tv/gigaohmbiological --selector='a[href^="/videos"]' --attribute=href --useprop=true
 
 echo "@@@ DEBUG 2"
+exit 0
 
 if [ $? -eq 0 -a `cat $GIGAOHMBIO_URL | wc -c` -gt 0 ]; then
   twitch-dl download --format $OUTPUT_FORMAT --overwrite --quality audio_only --output {title_slug}.{format} `cat $GIGAOHMBIO_URL` >$GIGAOHMBIO_DL 2>>$GIGAOHMBIO_LOG
