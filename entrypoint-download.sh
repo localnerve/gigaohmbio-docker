@@ -9,7 +9,7 @@ npx -y cowsay debug
 echo "@@@ DEBUG 1.5"
 
 OUTPUT_FORMAT=m4a
-DEBUG=get-attribute npx -y @localnerve/get-attribute --url=https://m.twitch.tv/gigaohmbiological --selector='a[href^="/videos"]' --attribute=href --useprop=true >$GIGAOHMBIO_URL 2>$GIGAOHMBIO_LOG
+DEBUG=cli,get-attribute npx -y @localnerve/get-attribute --url=https://m.twitch.tv/gigaohmbiological --selector='a[href^="/videos"]' --attribute=href --useprop=true >$GIGAOHMBIO_URL 2>$GIGAOHMBIO_LOG
 
 echo "@@@ DEBUG 2"
 
