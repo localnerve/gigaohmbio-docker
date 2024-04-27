@@ -47,7 +47,7 @@ jobs:
         with:
           image: gigaohmbio-download:latest
           name: gigaohmbio-download-1
-          options: -v ${{ github.workspace }}/data:/home/pn/app/data
+          options: --user 1000:1000 -v ${{ github.workspace }}/data:/home/pn/app/data
       
       - name: Verify
         shell: bash
