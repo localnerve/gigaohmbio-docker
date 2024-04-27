@@ -30,8 +30,8 @@ jobs:
       - name: Test Host User Group
         shell: bash
         run: |
-          echo "hostgroup=${{ steps.host.outputs.hostuser }}"
-          echo "hostuser=${{ steps.host.outputs.hostgroup }}"
+          echo "hostgroup=${{ steps.host.outputs.hostgroup }}"
+          echo "hostuser=${{ steps.host.outputs.hostuser }}"
 
       - name: Docker Build
         uses: docker/build-push-action@v4
@@ -41,13 +41,16 @@ jobs:
           load: true
           tags: gigaohmbio-download:latest
           push: false
+          build-args: |
+            UID=${{ steps.host.outputs.hostuser }}
+            GID=${{ steps.host.outputs.hostgroup }}
 
       - name: Docker Run
         uses: tj-actions/docker-run@v2
         with:
           image: gigaohmbio-download:latest
           name: gigaohmbio-download-1
-          options: --user 1000:1000 -v ${{ github.workspace }}/data:/home/pn/app/data
+          options: -v ${{ github.workspace }}/data:/home/pn/app/data
       
       - name: Verify
         shell: bash

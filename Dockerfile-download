@@ -1,5 +1,8 @@
 FROM nikolaik/python-nodejs:latest
 
+ARG UID=1000
+ARG GID=1000
+
 ENV APPHOME=/home/pn
 ENV APPDIR=$APPHOME/app
 ENV BINDMOUNT_VOL=./data
@@ -9,6 +12,12 @@ ENV GIGAOHMBIO_LOG=./data/log.txt
 
 USER root
 WORKDIR /app
+# set userid and groupid of the pn user from the host
+# fix volume access issues across hosts
+RUN <<EOF
+usermod -u $UID -g pn -o pn
+groupmod -g $GID -o pn
+EOF
 # install system prerequisites
 RUN <<EOF
 apt-get update
