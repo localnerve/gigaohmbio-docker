@@ -10,6 +10,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,7 +66,28 @@ jobs:
           test `tail -1 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt` = "DOWNLOAD_OK"
           echo "audiofile="$(echo "$(tail -2 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt)" | head -n 1)"" >> $GITHUB_OUTPUT
       
-      - name: Output Test
+      - name: Download Output
+        id: dl_output
         shell: bash
         run: |
-          echo "AUDIO_FILE=${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/${{ steps.verify.outputs.audiofile }}"
+          echo "audiopath=${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/${{ steps.verify.outputs.audiofile }}" >> $GITHUB_OUTPUT
+      
+      - name: Whisper
+        uses: appleboy/whisper-action@v0.1.1
+        with:
+          model: small
+          audio_path: ${{ steps.dl_output.outputs.audiopath }}
+          output_format: txt
+          output_folder: ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
+          print_segment: true
+          debug: true
+      
+      - name: git push changes
+        uses: appleboy/git-push-action@v0.0.2
+        with:
+          branch: ${{ env.BRANCH_NAME }}
+          commit: true
+          commit_message: "[skip ci] download and whisper output - ${{ steps.avars.outputs.datapath }}"
+          remote: git@github.com:appleboy/whisper-action.git
+          ssh_key: ${{ secrets.DEPLOY_KEY }}
+          rebase: true
