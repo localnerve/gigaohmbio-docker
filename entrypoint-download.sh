@@ -13,7 +13,7 @@ EOF
 
 )
 
-DEBUG=cli,get-attribute npx -y @localnerve/get-attribute \
+DEBUG=get-attribute npx -y @localnerve/get-attribute \
   --url=https://m.twitch.tv/gigaohmbiological\
   --selector='a[href^="/videos"]'\
   --attribute=href\
