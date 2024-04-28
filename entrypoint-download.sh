@@ -20,9 +20,7 @@ DEBUG=cli,get-attribute npx -y @localnerve/get-attribute \
   --selector='a[href^="/videos"]'\
   --attribute=href\
   --useprop=true\
-  --launchargs="{$CHROME_LAUNCHARGS}"
-
-exit 0
+  --launchargs="{$CHROME_LAUNCHARGS}" >$GIGAOHMBIO_URL 2>$GIGAOHMBIO_LOG
 
 echo "@@@ DEBUG 2"
 
