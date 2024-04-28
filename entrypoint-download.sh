@@ -33,6 +33,7 @@ if [ $? -eq 0 ]; then
 
   cp `pwd`/$AUDIO_FILE $BINDMOUNT_VOL >>$GIGAOHMBIO_LOG 2>&1
   if [ $? -eq 0 -a -f "$BINDMOUNT_VOL/$AUDIO_FILE" ]; then
+    echo "$BINDMOUNT_VOL/$AUDIO_FILE" >>$GIGAOHMBIO_LOG
     echo "DOWNLOAD_OK" >>$GIGAOHMBIO_LOG
   else
     echo "DOWNLOAD_FAILED" >>$GIGAOHMBIO_LOG

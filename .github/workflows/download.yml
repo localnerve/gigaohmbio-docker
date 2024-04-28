@@ -53,9 +53,14 @@ jobs:
           options: -v ${{ github.workspace }}/data:/home/pn/app/data
       
       - name: Verify
+        id: verify
         shell: bash
         run: |
-          ls -l ${{ github.workspace }}
           ls -l ${{ github.workspace }}/data
-          cat ${{ github.workspace }}/data/dl-output.txt
           test `tail -1 ${{ github.workspace }}/data/log.txt` = "DOWNLOAD_OK"
+          echo "audiofile="$(echo "$(tail -2 ${{ github.workspace }}/data/log.txt)" | head -n 1)"" >> $GITHUB_OUTPUT
+      
+      - name: Output Test
+        shell: bash
+        run: |
+          echo "AUDIO_FILE=${{ steps.verify.outputs.audiofile }}"
