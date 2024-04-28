@@ -26,15 +26,15 @@ jobs:
         run: |
           echo "hostuser=`id -u`" >> $GITHUB_OUTPUT
           echo "hostgroup=`id -g`" >> $GITHUB_OUTPUT
-          echo "bindmountvol=data/`date +%Y%m%d-%H%M%S`" >> $GITHUB_OUTPUT
+          echo "datapath=data/`date +%Y%m%d-%H%M%S`" >> $GITHUB_OUTPUT
 
       - name: Test Action Variables
         shell: bash
         run: |
           echo "hostuser=${{ steps.avars.outputs.hostuser }}"
           echo "hostgroup=${{ steps.avars.outputs.hostgroup }}"
-          echo "bindmountvol=${{ steps.avars.outputs.bindmountvol }}"
-          mkdir -p ${{ steps.avars.outputs.bindmountvol }}
+          echo "datapath=${{ steps.avars.outputs.datapath }}"
+          mkdir -p ${{ steps.avars.outputs.datapath }}
 
       - name: Docker Build
         uses: docker/build-push-action@v4
@@ -53,17 +53,17 @@ jobs:
         with:
           image: gigaohmbio-download:latest
           name: gigaohmbio-download-1
-          options: -v ${{ github.workspace }}/${{ steps.avars.outputs.bindmountvol }}:/home/pn/app/data
+          options: -v ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}:/home/pn/app/data
       
       - name: Verify
         id: verify
         shell: bash
         run: |
-          ls -l ${{ github.workspace }}/${{ steps.avars.outputs.bindmountvol }}
-          test `tail -1 ${{ github.workspace }}/${{ steps.avars.outputs.bindmountvol }}/log.txt` = "DOWNLOAD_OK"
-          echo "audiofile="$(echo "$(tail -2 ${{ github.workspace }}/${{ steps.avars.outputs.bindmountvol }}/log.txt)" | head -n 1)"" >> $GITHUB_OUTPUT
+          ls -l ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
+          test `tail -1 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt` = "DOWNLOAD_OK"
+          echo "audiofile="$(echo "$(tail -2 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt)" | head -n 1)"" >> $GITHUB_OUTPUT
       
       - name: Output Test
         shell: bash
         run: |
-          echo "AUDIO_FILE=${{ steps.verify.outputs.audiofile }}"
+          echo "AUDIO_FILE=${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/${{ steps.verify.outputs.audiofile }}"
