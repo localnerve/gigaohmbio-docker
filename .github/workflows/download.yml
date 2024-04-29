@@ -76,26 +76,31 @@ jobs:
         run: |
           echo "audiopath=${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/${{ steps.verify.outputs.audiofile }}" >> $GITHUB_OUTPUT
       
-      - name: Whisper
-        uses: appleboy/whisper-action@v0.1.1
-        with:
-          model: small
-          audio_path: ${{ steps.dl_output.outputs.audiopath }}
-          output_format: txt
-          output_folder: ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
-          print_segment: true
-          debug: true
+#      - name: Whisper
+#        uses: appleboy/whisper-action@v0.1.1
+#        with:
+#          model: small
+#          audio_path: ${{ steps.dl_output.outputs.audiopath }}
+#          output_format: txt
+#          output_folder: ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
+#          print_segment: true
+#          debug: true
       
       - name: Commit Updates
         shell: bash
         run: |
+          ls -l ${{ steps.avars.outputs.datapath }}
+          echo "***"
+          echo "***"
+          echo "***"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add ${{ steps.avars.outputs.datapath }}
-          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
+          git status
+#          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
 
-      - name: Push Changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.BRANCH_REF }}
+#      - name: Push Changes
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          branch: ${{ env.BRANCH_REF }}
