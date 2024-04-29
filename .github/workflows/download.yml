@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH_REF }}
+          fetch-depth: 0
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -92,10 +95,12 @@ jobs:
           ls -l ${{ steps.avars.outputs.datapath }}
           echo "***"
           echo "***"
-          echo "***"
+          echo "*** git config ***"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          echo "*** git add ***"
           git add ${{ steps.avars.outputs.datapath }}
+          echo "*** git status ***"
           git status
 #          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
 
