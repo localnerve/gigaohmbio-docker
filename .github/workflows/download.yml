@@ -94,13 +94,17 @@ jobs:
         run: |
           ls -l ${{ steps.avars.outputs.datapath }}
           echo "***"
-          echo "***"
+          echo "*** git status before config and add ***"
+          git status
           echo "*** git config ***"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           echo "*** git add ***"
           git add ${{ steps.avars.outputs.datapath }}
-          echo "*** git status ***"
+          echo "*** git status after add ***"
+          git status
+          echo "*** make a file and test status again ***"
+          echo "test data" >test-1.md
           git status
 #          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
 
