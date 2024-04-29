@@ -92,21 +92,13 @@ jobs:
       - name: Commit Updates
         shell: bash
         run: |
-          ls -l ${{ steps.avars.outputs.datapath }}
-          echo "***"
-          echo "*** git status before config and add ***"
-          git status
-          echo "*** git config ***"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          echo "*** git add ***"
           git add ${{ steps.avars.outputs.datapath }}
-          echo "*** git status after add ***"
-          git status
-#          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
+          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
 
-#      - name: Push Changes
-#        uses: ad-m/github-push-action@master
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          branch: ${{ env.BRANCH_REF }}
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.BRANCH_REF }}
