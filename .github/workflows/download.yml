@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      EVENT_BRANCH: ${{ github.head_ref || github.ref }}
+      BRANCH_REF: ${{ github.head_ref || github.ref }}
 
     permissions:
       contents: write
@@ -97,4 +97,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.EVENT_BRANCH }}
+          branch: ${{ env.BRANCH_REF }}
