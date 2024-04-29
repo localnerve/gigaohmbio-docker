@@ -105,6 +105,7 @@ jobs:
           git status
           echo "*** make a file and test status again ***"
           echo "test data" >test-1.md
+          mv ${{ steps.avars.outputs.datapath }} "update-${{ steps.avars.outputs.datapath }}"
           git status
 #          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
 
