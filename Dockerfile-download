@@ -6,9 +6,9 @@ ARG GID=1000
 ENV APPHOME=/home/pn
 ENV APPDIR=$APPHOME/app
 ENV BINDMOUNT_VOL=./data
-ENV GIGAOHMBIO_URL=./data/latest-video-url.txt
-ENV GIGAOHMBIO_DL=./data/dl-output.txt
-ENV GIGAOHMBIO_LOG=./data/log.txt
+ENV GIGAOHMBIO_URL=$BINDMOUNT_VOL/latest-video-url.txt
+ENV GIGAOHMBIO_DL=$BINDMOUNT_VOL/dl-output.txt
+ENV GIGAOHMBIO_LOG=$BINDMOUNT_VOL/log.txt
 
 USER root
 WORKDIR /app

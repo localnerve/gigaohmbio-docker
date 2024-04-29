@@ -13,7 +13,7 @@ EOF
 
 )
 
-DEBUG=cli,get-attribute npx -y @localnerve/get-attribute \
+DEBUG=get-attribute npx -y @localnerve/get-attribute \
   --url=https://m.twitch.tv/gigaohmbiological\
   --selector='a[href^="/videos"]'\
   --attribute=href\
@@ -33,6 +33,7 @@ if [ $? -eq 0 ]; then
 
   cp `pwd`/$AUDIO_FILE $BINDMOUNT_VOL >>$GIGAOHMBIO_LOG 2>&1
   if [ $? -eq 0 -a -f "$BINDMOUNT_VOL/$AUDIO_FILE" ]; then
+    echo "$AUDIO_FILE" >>$GIGAOHMBIO_LOG
     echo "DOWNLOAD_OK" >>$GIGAOHMBIO_LOG
   else
     echo "DOWNLOAD_FAILED" >>$GIGAOHMBIO_LOG
