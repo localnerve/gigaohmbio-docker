@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+      EVENT_BRANCH: ${{ github.head_ref || github.ref }}
 
     permissions:
       contents: write
@@ -20,6 +20,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EVENT_BRANCH }}
+          persist-credentials: false
+          fetch-depth: 0
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -86,8 +90,15 @@ jobs:
           print_segment: true
           debug: true
       
-      - name: git push changes
+      - name: Commit Updates
+        shell: bash
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -a -m "Run updates ${{ steps.avars.outputs.datapath }}"
+
+      - name: Push Changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.BRANCH_NAME }}
+          branch: ${{ env.EVENT_BRANCH }}
