@@ -9,7 +9,8 @@
 #
 # Positional arguments:
 #   1. audio filename in this repository's data directory
-#   2. path to the output folder
+#
+# Places output in this repository's data directory
 #
 SCRIPT_DIR=$(cd -- "$(dirname -- "$0")" &> /dev/null && pwd)
 MODELS_DIR=`readlink -f $SCRIPT_DIR/../models`
@@ -23,18 +24,10 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-readlink -f "$2" >/dev/null
-if [ $? -ne 0 -o ! -d "$2" ]; then
-  echo "second argument must contain a valid path to an output folder"
-  exit 2
-fi
-
 # set arguments
 export INPUT_MODEL=small
-INPUT_OUTPUT_FORMAT=txt
 INPUT_AUDIO_PATH="/app/testdata/$INPUT_AUDIOFILE"
-INPUT_OUTPUT_FOLDER=`readlink -f "$2"`
-INPUT_PRINT_PROGRESS=true
+INPUT_OUTPUT_FORMAT=txt # srt, txt, csv
 
 echo "building gigaohmbio-transcribe..."
 docker build -t 'gigaohmbio-transcribe' -f Dockerfile-transcribe .
@@ -45,7 +38,6 @@ if [ $? -eq 0 ]; then
     -v $DATA_DIR:/app/testdata \
     'gigaohmbio-transcribe' \
     --audio-path $INPUT_AUDIO_PATH \
-    --output-folder $INPUT_OUTPUT_FOLDER \
     --output-format $INPUT_OUTPUT_FORMAT \
-    --print-progress $INPUT_PRINT_PROGRESS
+    --print-progress true
 fi

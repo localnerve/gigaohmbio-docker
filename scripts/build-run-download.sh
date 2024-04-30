@@ -7,6 +7,8 @@
 #   docker
 #   bourne shell
 #
+# Places output in this repository's data directory
+#
 SCRIPT_DIR=$(cd -- "$(dirname -- "$0")" &> /dev/null && pwd)
 DATA_DIR=`readlink -f $SCRIPT_DIR/../data`
 
