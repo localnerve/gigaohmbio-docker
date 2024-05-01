@@ -73,7 +73,7 @@ jobs:
         shell: bash
         run: |
           ls -l ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
-          test `tail -1 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt` = "DOWNLOAD_NONONO"
+          test `tail -1 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt` = "DOWNLOAD_OK"
           if [ $? -eq 0 ]; then
             echo "audiofile="$(echo "$(tail -2 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt)" | head -n 1)"" >> $GITHUB_OUTPUT
           else
@@ -87,15 +87,15 @@ jobs:
         run: |
           echo "audiopath=${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/${{ steps.verify.outputs.audiofile }}" >> $GITHUB_OUTPUT
       
-      - name: Whisper
-        uses: appleboy/whisper-action@v0.1.1
-        with:
-          model: small
-          audio_path: ${{ steps.dl_output.outputs.audiopath }}
-          output_format: txt
-          output_folder: ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
-          print_segment: true
-          debug: true
+#      - name: Whisper
+#        uses: appleboy/whisper-action@v0.1.1
+#        with:
+#          model: small
+#          audio_path: ${{ steps.dl_output.outputs.audiopath }}
+#          output_format: txt
+#          output_folder: ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
+#          print_segment: true
+#          debug: true
       
       - name: Commit Updates
         shell: bash
