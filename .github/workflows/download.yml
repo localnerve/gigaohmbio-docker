@@ -37,7 +37,7 @@ jobs:
           echo "hostuser=`id -u`" >> $GITHUB_OUTPUT
           echo "hostgroup=`id -g`" >> $GITHUB_OUTPUT
           echo "datapath=data/`date +%Y%m%d-%H%M%S`" >> $GITHUB_OUTPUT
-          echo "previousurl=$(cat `ls -lARrt **/**/latest-video-url.txt | tail -1 | awk '{print $9}'`)"
+          echo "previousurl=$(cat `ls -lARrt **/**/latest-video-url.txt | tail -1 | awk '{print $9}'`)" >> $GITHUB_OUTPUT
 
       - name: Setup and Audit
         shell: bash
@@ -78,7 +78,7 @@ jobs:
             echo "audiofile="$(echo "$(tail -2 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt)" | head -n 1)"" >> $GITHUB_OUTPUT
           else
             gh run cancel ${{ github.run_id }}
-            exit 1
+            exit 4120
           fi
       
       - name: Download Output
@@ -87,7 +87,9 @@ jobs:
         run: |
           echo "audiopath=${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/${{ steps.verify.outputs.audiofile }}" >> $GITHUB_OUTPUT
       
-#      - name: Whisper
+      - name: Whisper
+        shell: bash
+        run: echo "Placeholder whisper step"
 #        uses: appleboy/whisper-action@v0.1.1
 #        with:
 #          model: small
