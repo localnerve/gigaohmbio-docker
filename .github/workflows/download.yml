@@ -50,6 +50,11 @@ jobs:
           ls -lARrt **/**/latest-video-url.txt
           echo ***
           ls -lARrt **/**/latest-video-url.txt | tail -1
+          echo *** ALT METHOD
+          echo ***
+           ls -ltR **/**/latest-video-url.txt
+          echo ***
+            ls -ltR **/**/latest-video-url.txt | head -1
           echo ***
           mkdir -p ${{ steps.avars.outputs.datapath }}
 
