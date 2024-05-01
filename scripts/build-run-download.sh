@@ -16,5 +16,5 @@ echo "building gigaohmbio-download..."
 docker build -t 'gigaohmbio-download' -f Dockerfile-download --build-arg UID=`id -u` --build-arg GID=`id -g` .
 if [ $? -eq 0 ]; then
   echo "running gigaohmbio-download..."
-  docker run --rm -v $DATA_DIR:/home/pn/app/data 'gigaohmbio-download'
+  docker run --rm -v $DATA_DIR:/home/pn/app/data 'gigaohmbio-download' $@
 fi

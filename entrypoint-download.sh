@@ -12,6 +12,7 @@ CHROME_LAUNCHARGS=$(cat <<-EOF
 EOF
 
 )
+PREVIOUS_VIDEO_URL="${1:-"none-n-o-n-e-none"}"
 
 DEBUG=get-attribute npx -y @localnerve/get-attribute \
   --url=https://m.twitch.tv/gigaohmbiological\
@@ -20,8 +21,15 @@ DEBUG=get-attribute npx -y @localnerve/get-attribute \
   --useprop=true\
   --launchargs="{$CHROME_LAUNCHARGS}" >$GIGAOHMBIO_URL 2>$GIGAOHMBIO_LOG
 
-if [ $? -eq 0 -a `cat $GIGAOHMBIO_URL | wc -c` -gt 0 ]; then
-  twitch-dl download --format $OUTPUT_FORMAT --overwrite --quality audio_only --output {title_slug}.{format} `cat $GIGAOHMBIO_URL` >$GIGAOHMBIO_DL 2>>$GIGAOHMBIO_LOG
+LATEST_VIDEO_URL="`cat $GIGAOHMBIO_URL`"
+if [ $? -eq 0 -a `echo $LATEST_VIDEO_URL | wc -c` -gt 0 ]; then
+  if [ $LATEST_VIDEO_URL = $PREVIOUS_VIDEO_URL ]; then
+    echo "Latest video url matches previous video url, stopping..." >>$GIGAOHMBIO_LOG
+    echo "DOWNLOAD_SKIP" >>$GIGAOHMBIO_LOG
+    exit 0
+  fi
+
+  twitch-dl download --format $OUTPUT_FORMAT --overwrite --quality audio_only --output {title_slug}.{format} $LATEST_VIDEO_URL >$GIGAOHMBIO_DL 2>>$GIGAOHMBIO_LOG
 else
   echo "Failed to get latest video url" >>$GIGAOHMBIO_LOG
   exit 4121
