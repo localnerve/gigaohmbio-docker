@@ -46,6 +46,11 @@ jobs:
           echo "hostgroup=${{ steps.avars.outputs.hostgroup }}"
           echo "datapath=${{ steps.avars.outputs.datapath }}"
           echo "previousurl=${{ steps.avars.outputs.previousurl }}"
+          echo ***
+          ls -lARrt **/**/latest-video-url.txt
+          echo ***
+          ls -lARrt **/**/latest-video-url.txt | tail -1
+          echo ***
           mkdir -p ${{ steps.avars.outputs.datapath }}
 
       - name: Docker Build
@@ -75,8 +80,14 @@ jobs:
           ls -l ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
           test `tail -1 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt` = "DOWNLOAD_OK"
           if [ $? -eq 0 ]; then
+            echo ***
+            echo PROCEED
+            echo ***
             echo "audiofile="$(echo "$(tail -2 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt)" | head -n 1)"" >> $GITHUB_OUTPUT
           else
+            echo ***
+            echo CANCELLED
+            echo ***
             gh run cancel ${{ github.run_id }}
             exit 4120
           fi
