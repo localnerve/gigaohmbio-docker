@@ -1,0 +1,19 @@
+2024-05-01T02:33:58.817Z get-attribute args url=https://m.twitch.tv/gigaohmbiological selector=a[href^="/videos"] attribute=href useProp=true timeout=10000 launchargs={"headless":true,"args":["--no-sandbox","--disable-setuid-sandbox"]}
+2024-05-01T02:33:59.083Z get-attribute launched successfully
+2024-05-01T02:33:59.663Z get-attribute navigated to url successfully
+2024-05-01T02:33:59.781Z get-attribute waited for selector successfully
+2024-05-01T02:33:59.792Z get-attribute got attribute value https://m.twitch.tv/videos/2133599821
+npm notice 
+npm notice New minor version of npm available! 10.5.1 -> 10.7.0
+npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.7.0>
+npm notice Run `npm install -g npm@10.7.0` to update!
+npm notice 
+Looking up video...
+Fetching access token...
+Fetching playlists...
+Fetching playlist...
+Joining files...
+size=       0kB time=00:00:00.00 bitrate=N/A speed=N/A    size=   80384kB time=01:02:55.31 bitrate= 174.4kbits/s speed=7.55e+03x    size=  158720kB time=02:06:26.62 bitrate= 171.4kbits/s speed=7.59e+03x    size=  176960kB time=02:19:52.83 bitrate= 172.7kbits/s speed=7.51e+03x    
+Deleting temporary files...
+racinello_and_virology_103_2018_study_hall_29_apr_2024_gigaohm_biological_high_resistance_low_noise_information_brief.m4a
+DOWNLOAD_OK
