@@ -37,7 +37,7 @@ jobs:
           echo "hostuser=`id -u`" >> $GITHUB_OUTPUT
           echo "hostgroup=`id -g`" >> $GITHUB_OUTPUT
           echo "datapath=data/`date +%Y%m%d-%H%M%S`" >> $GITHUB_OUTPUT
-          echo "previousurl=$(cat `ls -lARrt **/**/latest-video-url.txt | tail -1 | awk '{print $9}'`)" >> $GITHUB_OUTPUT
+          echo "previousurl=$(cat `ls -ltR **/**/latest-video-url.txt | tail -1 | awk '{print $9}'`)" >> $GITHUB_OUTPUT
 
       - name: Setup and Audit
         shell: bash
@@ -46,17 +46,17 @@ jobs:
           echo "hostgroup=${{ steps.avars.outputs.hostgroup }}"
           echo "datapath=${{ steps.avars.outputs.datapath }}"
           echo "previousurl=${{ steps.avars.outputs.previousurl }}"
+          mkdir -p ${{ steps.avars.outputs.datapath }}
           echo "***"
           ls -lARrt **/**/latest-video-url.txt
           echo "***"
           ls -lARrt **/**/latest-video-url.txt | tail -1
-          echo *** ALT METHOD
+          echo "*** ALT METHOD"
           echo "***"
            ls -ltR **/**/latest-video-url.txt
           echo "***"
             ls -ltR **/**/latest-video-url.txt | head -1
-          echo "***"
-          mkdir -p ${{ steps.avars.outputs.datapath }}
+          echo "***"          
 
       - name: Docker Build
         uses: docker/build-push-action@v4
@@ -85,14 +85,14 @@ jobs:
           ls -l ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
           test `tail -1 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt` = "DOWNLOAD_OK"
           if [ $? -eq 0 ]; then
-            echo ***
-            echo PROCEED
-            echo ***
+            echo "***"
+            echo "PROCEED"
+            echo "***"
             echo "audiofile="$(echo "$(tail -2 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt)" | head -n 1)"" >> $GITHUB_OUTPUT
           else
-            echo ***
-            echo CANCELLED
-            echo ***
+            echo "***"
+            echo "CANCELLED"
+            echo "***"
             gh run cancel ${{ github.run_id }}
             exit 4120
           fi
