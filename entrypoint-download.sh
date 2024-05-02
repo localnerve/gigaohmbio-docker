@@ -14,12 +14,23 @@ EOF
 )
 PREVIOUS_VIDEO_URL="${1:-"none-n-o-n-e-none"}"
 
+echo "***" >$GIGAOHMBIO_LOG
+tail -f $GIGAOHMBIO_LOG &
+echo "Start download at `date +%Y%m%d-%H%M%S`" >>$GIGAOHMBIO_LOG
+CONSOLE_LOG_PID=$!
+
+exitFunction () {
+  kill $CONSOLE_LOG_PID
+}
+
+trap exitFunction EXIT
+
 DEBUG=get-attribute npx -y @localnerve/get-attribute \
   --url=https://m.twitch.tv/gigaohmbiological\
   --selector='a[href^="/videos"]'\
   --attribute=href\
   --useprop=true\
-  --launchargs="{$CHROME_LAUNCHARGS}" >$GIGAOHMBIO_URL 2>$GIGAOHMBIO_LOG
+  --launchargs="{$CHROME_LAUNCHARGS}" >$GIGAOHMBIO_URL 2>>$GIGAOHMBIO_LOG
 
 LATEST_VIDEO_URL="`cat $GIGAOHMBIO_URL`"
 if [ $? -eq 0 -a `echo $LATEST_VIDEO_URL | wc -c` -gt 0 ]; then
