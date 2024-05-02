@@ -91,15 +91,14 @@ jobs:
       
       - name: Whisper
         shell: bash
-        run: echo "Placeholder whisper step"
-#        uses: appleboy/whisper-action@v0.1.1
-#        with:
-#          model: small
-#          audio_path: ${{ steps.dl_output.outputs.audiopath }}
-#          output_format: txt
-#          output_folder: ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
-#          print_segment: true
-#          debug: true
+        uses: appleboy/whisper-action@v0.1.1
+        with:
+          model: small
+          audio_path: ${{ steps.dl_output.outputs.audiopath }}
+          output_format: txt
+          output_folder: ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
+          print_segment: true
+          debug: true
       
       - name: Commit Updates
         shell: bash
