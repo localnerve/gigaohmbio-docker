@@ -90,7 +90,6 @@ jobs:
           echo "audiopath=${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/${{ steps.verify.outputs.audiofile }}" >> $GITHUB_OUTPUT
       
       - name: Whisper
-        shell: bash
         uses: appleboy/whisper-action@v0.1.1
         with:
           model: small

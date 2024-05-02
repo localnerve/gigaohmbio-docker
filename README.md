@@ -61,6 +61,7 @@ All go-whisper variables are listed at the source [repo](https://github.com/appl
 ## Further Automation Notes/Ideas
 
 * The outputs of this project can be further redirected or sent on to other services
+  * The whisper output could be sent as input to an AI service to generate summary articles
 * The Github Action can be run on a cron schedule, managed by Github Actions
 * The download script:  
   * Can be changed to read multiple videos at once, enabling less frequent processing (cost purposes)
