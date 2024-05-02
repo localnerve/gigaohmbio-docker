@@ -47,16 +47,6 @@ jobs:
           echo "datapath=${{ steps.avars.outputs.datapath }}"
           echo "previousurl=${{ steps.avars.outputs.previousurl }}"
           mkdir -p ${{ steps.avars.outputs.datapath }}
-          echo "***"
-          ls -lARrt **/**/latest-video-url.txt
-          echo "***"
-          ls -lARrt **/**/latest-video-url.txt | tail -1
-          echo "*** ALT METHOD"
-          echo "***"
-           ls -ltR **/**/latest-video-url.txt
-          echo "***"
-            ls -ltR **/**/latest-video-url.txt | head -1
-          echo "***"          
 
       - name: Docker Build
         uses: docker/build-push-action@v4
@@ -83,16 +73,11 @@ jobs:
         shell: bash
         run: |
           ls -l ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}
+          echo "`tail -1 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt`"
           test `tail -1 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt` = "DOWNLOAD_OK"
           if [ $? -eq 0 ]; then
-            echo "***"
-            echo "PROCEED"
-            echo "***"
             echo "audiofile="$(echo "$(tail -2 ${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/log.txt)" | head -n 1)"" >> $GITHUB_OUTPUT
           else
-            echo "***"
-            echo "CANCELLED"
-            echo "***"
             gh run cancel ${{ github.run_id }}
             exit 4120
           fi
@@ -115,16 +100,16 @@ jobs:
 #          print_segment: true
 #          debug: true
       
-#      - name: Commit Updates
-#        shell: bash
-#        run: |
-#          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-#          git config --local user.name "github-actions[bot]"
-#          git add ${{ steps.avars.outputs.datapath }}
-#          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
+      - name: Commit Updates
+        shell: bash
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add ${{ steps.avars.outputs.datapath }}
+          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
 
-#      - name: Push Changes
-#        uses: ad-m/github-push-action@master
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          branch: ${{ env.BRANCH_REF }}
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.BRANCH_REF }}
