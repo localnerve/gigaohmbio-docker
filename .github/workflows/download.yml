@@ -37,11 +37,12 @@ jobs:
           echo "hostuser=`id -u`" >> $GITHUB_OUTPUT
           echo "hostgroup=`id -g`" >> $GITHUB_OUTPUT
           echo "datapath=data/`date +%Y%m%d-%H%M%S`" >> $GITHUB_OUTPUT
-          echo "previousurl=$(cat `ls -ltR **/**/latest-video-url.txt | tail -1 | awk '{print $9}'`)" >> $GITHUB_OUTPUT
+          echo "previousurl=$(cat `ls -lR **/**/latest-video-url.txt | tail -1 | awk '{print $9}'`)" >> $GITHUB_OUTPUT
 
       - name: Setup and Audit
         shell: bash
         run: |
+          ls -lR **/**/latest-video-url.txt
           echo "hostuser=${{ steps.avars.outputs.hostuser }}"
           echo "hostgroup=${{ steps.avars.outputs.hostgroup }}"
           echo "datapath=${{ steps.avars.outputs.datapath }}"
