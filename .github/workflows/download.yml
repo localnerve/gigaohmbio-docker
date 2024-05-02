@@ -46,16 +46,16 @@ jobs:
           echo "hostgroup=${{ steps.avars.outputs.hostgroup }}"
           echo "datapath=${{ steps.avars.outputs.datapath }}"
           echo "previousurl=${{ steps.avars.outputs.previousurl }}"
-          echo ***
+          echo "***"
           ls -lARrt **/**/latest-video-url.txt
-          echo ***
+          echo "***"
           ls -lARrt **/**/latest-video-url.txt | tail -1
           echo *** ALT METHOD
-          echo ***
+          echo "***"
            ls -ltR **/**/latest-video-url.txt
-          echo ***
+          echo "***"
             ls -ltR **/**/latest-video-url.txt | head -1
-          echo ***
+          echo "***"
           mkdir -p ${{ steps.avars.outputs.datapath }}
 
       - name: Docker Build
@@ -115,16 +115,16 @@ jobs:
 #          print_segment: true
 #          debug: true
       
-      - name: Commit Updates
-        shell: bash
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add ${{ steps.avars.outputs.datapath }}
-          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
+#      - name: Commit Updates
+#        shell: bash
+#        run: |
+#          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+#          git config --local user.name "github-actions[bot]"
+#          git add ${{ steps.avars.outputs.datapath }}
+#          git commit -m "Update ${{ steps.avars.outputs.datapath }}"
 
-      - name: Push Changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.BRANCH_REF }}
+#      - name: Push Changes
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          branch: ${{ env.BRANCH_REF }}
