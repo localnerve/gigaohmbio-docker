@@ -16,8 +16,8 @@ PREVIOUS_VIDEO_URL="${1:-"none-n-o-n-e-none"}"
 
 echo "***" >$GIGAOHMBIO_LOG
 tail -f $GIGAOHMBIO_LOG &
-echo "Start download at `date +%Y%m%d-%H%M%S`" >>$GIGAOHMBIO_LOG
 CONSOLE_LOG_PID=$!
+echo "Start download at `date +%Y%m%d-%H%M%S`" >>$GIGAOHMBIO_LOG
 
 exitFunction () {
   kill $CONSOLE_LOG_PID
