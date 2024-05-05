@@ -54,6 +54,8 @@ docker run --rm -v ./data:/app/testdata -v ./models:/app/models \
   --input-audio /app/testdata/my-latest-audio-file-in-data-dir.m4a \
   --output-format txt \
   --print-progress true
+
+# output is in ./data
 ```
 
 All go-whisper variables are listed at the source [repo](https://github.com/appleboy/go-whisper/blob/main/README.md)
