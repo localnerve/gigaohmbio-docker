@@ -1,0 +1,21 @@
+***
+Start download at 20240505-182318
+2024-05-05T18:23:29.517Z get-attribute args url=https://m.twitch.tv/gigaohmbiological selector=a[href^="/videos"] attribute=href useProp=true timeout=10000 launchargs={"headless":true,"args":["--no-sandbox","--disable-setuid-sandbox"]}
+2024-05-05T18:23:29.804Z get-attribute launched successfully
+2024-05-05T18:23:30.879Z get-attribute navigated to url successfully
+2024-05-05T18:23:30.898Z get-attribute waited for selector successfully
+2024-05-05T18:23:30.899Z get-attribute got attribute value https://m.twitch.tv/videos/2138004400
+npm notice 
+npm notice New minor version of npm available! 10.5.1 -> 10.7.0
+npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.7.0>
+npm notice Run `npm install -g npm@10.7.0` to update!
+npm notice 
+Looking up video...
+Fetching access token...
+Fetching playlists...
+Fetching playlist...
+Joining files...
+size=       0kB time=00:00:00.00 bitrate=N/A speed=N/A    size=   79360kB time=01:02:53.20 bitrate= 172.3kbits/s speed=7.55e+03x    size=  158976kB time=02:06:00.04 bitrate= 172.3kbits/s speed=7.56e+03x    size=  191802kB time=02:30:39.29 bitrate= 173.8kbits/s speed=7.38e+03x    
+Deleting temporary files...
+sunday_anti_acadamagic_hour_5_may_2024_gigaohm_biological_high_resistance_low_noise_information_brief.m4a
+DOWNLOAD_OK
