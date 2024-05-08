@@ -21,6 +21,7 @@ The download docker container gets the latest video url from twitch, downloads i
 > Build and download script exists at ./scripts/build-run-download.sh
 
 Commands to run isolated (from project directory):
+
 ```
 # build the image
 export UID=`id -u`
@@ -41,6 +42,7 @@ Uses the [go-whisper](https://github.com/appleboy/go-whisper) implementation.
 > Build and download script exists at ./scripts/build-run-transcribe.sh
 
 Commands to run isolated (from project directory):
+
 ```
 # build the image
 docker build -t 'gigaohmbio-transcribe' -f Dockerfile-transcribe .
