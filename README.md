@@ -24,9 +24,7 @@ Commands to run isolated (from project directory):
 
 ```
 # build the image
-export UID=`id -u`
-export GID=`id -g`
-docker build -t 'gigaohmbio-download' -f Dockerfile-download --build-arg UID=$UID --build-arg GID=$GID .
+docker build -t 'gigaohmbio-download' -f Dockerfile-download --build-arg UID=`id -u` --build-arg GID=`id -g` .
 
 # run the image in a tmp container
 docker run --rm -v ./data:/home/pn/app/data 'gigaohmbio-download'
