@@ -36,7 +36,7 @@ LATEST_VIDEO_URL="`cat $GIGAOHMBIO_URL`"
 if [ $? -eq 0 -a `echo $LATEST_VIDEO_URL | wc -c` -gt 0 ]; then
   if [ $LATEST_VIDEO_URL = $PREVIOUS_VIDEO_URL ]; then
     echo "Latest video url matches previous video url, stopping..." >>$GIGAOHMBIO_LOG
-    echo "DOWNLOAD_SKIP" >>$GIGAOHMBIO_LOG
+    echo "DOWNLOAD_DUPLICATE" >>$GIGAOHMBIO_LOG
     exit 0
   fi
 
