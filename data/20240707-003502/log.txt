@@ -1,0 +1,16 @@
+***
+Start download at 20240707-003726
+2024-07-07T00:37:36.677Z get-attribute args url=https://m.twitch.tv/gigaohmbiological selector=a[href^="/videos"] attribute=href useProp=true timeout=10000 launchargs={"headless":true,"args":["--no-sandbox","--disable-setuid-sandbox"]}
+2024-07-07T00:37:36.938Z get-attribute launched successfully
+2024-07-07T00:37:39.287Z get-attribute navigated to url successfully
+2024-07-07T00:37:39.303Z get-attribute waited for selector successfully
+2024-07-07T00:37:39.305Z get-attribute got attribute value https://m.twitch.tv/videos/2190971682
+Looking up video...
+Fetching access token...
+Fetching playlists...
+Fetching playlist...
+Joining files...
+size=       0kB time=00:00:00.00 bitrate=N/A speed=N/A    size=   80128kB time=01:04:43.52 bitrate= 169.0kbits/s speed=7.77e+03x    size=  160512kB time=02:08:16.42 bitrate= 170.8kbits/s speed=7.7e+03x    size=  188179kB time=02:28:46.63 bitrate= 172.7kbits/s speed=7.6e+03x    
+Deleting temporary files...
+malone_does_vejon_in_june_2021_6_july_2024_gigaohm_biological_high_resistance_low_noise_information_brief.m4a
+DOWNLOAD_OK
