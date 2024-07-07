@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  download:
+  download-and-transcribe:
 
     runs-on: ubuntu-latest
 
@@ -48,7 +48,7 @@ jobs:
           echo "previousurl=${{ steps.avars.outputs.previousurl }}"
           mkdir -p ${{ steps.avars.outputs.datapath }}
 
-      - name: Docker Build
+      - name: Download Build
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -60,7 +60,7 @@ jobs:
             UID=${{ steps.avars.outputs.hostuser }}
             GID=${{ steps.avars.outputs.hostgroup }}
 
-      - name: Docker Run
+      - name: Download Run
         uses: tj-actions/docker-run@v2
         with:
           image: gigaohmbio-download:latest
@@ -82,13 +82,13 @@ jobs:
             exit 4120
           fi
       
-      - name: Download Output
+      - name: Prepare Transcribe
         id: dl_output
         shell: bash
         run: |
           echo "audiopath=${{ github.workspace }}/${{ steps.avars.outputs.datapath }}/${{ steps.verify.outputs.audiofile }}" >> $GITHUB_OUTPUT
       
-      - name: Whisper
+      - name: Transcribe
         uses: appleboy/whisper-action@v0.1.1
         with:
           model: small
