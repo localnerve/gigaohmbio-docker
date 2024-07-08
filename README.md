@@ -69,6 +69,6 @@ All go-whisper variables are listed at the source [repo](https://github.com/appl
 * The Github Action can be run on a cron schedule, managed by Github Actions
 * The download script:  
   * Can be changed to read multiple videos at once, enabling less frequent processing (cost purposes)
-  * Can be changed to transcribe to multiple formats (audio, video)
+  * Can be changed to transcode to multiple formats (audio, video)
   * Can be changed to source from other services, not just twitch
   * Hosts full chrome/puppeteer and ffmpeg, so can be scripted to perform the download/transcribe itself instead of relying on dependencies (like twitch-dl)
